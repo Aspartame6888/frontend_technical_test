@@ -8,6 +8,11 @@ import { AppComponent } from './app.component';
 import { ContractComponent } from './page/contract/contract.component';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
+
 
 @NgModule({
   declarations: [
@@ -19,6 +24,8 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     MatButtonModule,
     FormsModule,
+    MatInputModule,
+    BrowserAnimationsModule,
     StoreModule.forRoot({ contact: contactReducer })
   ],
   providers: [],
