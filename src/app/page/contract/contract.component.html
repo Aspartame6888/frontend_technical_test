@@ -1,0 +1,82 @@
+<div style="display: flex; flex-direction: column; padding: 15px">
+  <div style="flex: 1">
+    <input
+      [(ngModel)]="newContact.firstName"
+      placeholder="First Name"
+      style="margin-left: 15px"
+    />
+    <input
+      [(ngModel)]="newContact.lastName"
+      placeholder="Last Name"
+      style="margin-left: 15px"
+    />
+    <input
+      [(ngModel)]="newContact.email"
+      placeholder="Email"
+      style="margin-left: 15px"
+    />
+    <input
+      [(ngModel)]="newContact.phone"
+      placeholder="Phone"
+      style="margin-left: 15px"
+    />
+    <button
+      mat-raised-button
+      color="primary"
+      style="margin-left: 30px"
+      (click)="addContact()"
+    >
+      Add Contact
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      style="margin-left: 30px"
+      (click)="sort()"
+    >
+      Sort
+    </button>
+    <input
+      [(ngModel)]="searchTerm"
+      placeholder="Search Contacts"
+      style="margin-left: 15px"
+    />
+    <button mat-raised-button color="primary" (click)="filter()">Filter</button>
+  </div>
+</div>
+<h2>Contact List</h2>
+<div
+  *ngFor="let contact of displayedContacts"
+  style="display: flex; flex-direction: row; padding: 15px"
+>
+  <div style="flex: 1">
+    <p style="margin-left: 15px">
+      <strong>1.Contact ID:</strong> {{ contact.id }}
+    </p>
+    <span style="margin-left: 15px">
+      <strong>2.First Name:</strong> {{ contact.firstName }}</span
+    >
+    <span style="margin-left: 15px"
+      ><strong>3.Last Name:</strong> {{ contact.lastName }}</span
+    >
+    <span style="margin-left: 15px"
+      ><strong>4.Email:</strong> {{ contact.email }}</span
+    >
+    <span style="margin-left: 15px"
+      ><strong>5.Phone:</strong> {{ contact.phone }}</span
+    >
+    <button
+      mat-raised-button
+      color="warn"
+      style="margin-left: 45px; background-color: red; color: white"
+      (click)="removeContact(contact.id)"
+    >
+      Remove Contact
+    </button>
+    <hr />
+  </div>
+</div>
+
+<button mat-raised-button color="primary" (click)="exportToCSV()">
+  Export to CSV
+</button>
