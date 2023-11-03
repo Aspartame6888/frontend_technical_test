@@ -25,6 +25,7 @@ export class ContractComponent {
   };
   searchTerm: string = '';
   nextId: number = 1;
+  noMatchFound: boolean = false;
 
   constructor(private store: Store<{ contact: { contacts: Contact[] } }>) {
     this.contact$ = store.select(state => state.contact.contacts);
@@ -39,14 +40,28 @@ export class ContractComponent {
 
   // 筛选联系人列表
   filter() {
-    this.displayedContacts = [...this.displayedContacts]; // 创建一个新的数组以避免直接改变原始数据
-    this.displayedContacts = this.displayedContacts.filter(contact =>
-      contact.firstName.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      contact.lastName.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
+    if (this.searchTerm) {
+      this.displayedContacts = [...this.displayedContacts]; // 创建一个新的数组以避免直接改变原始数据
+      this.displayedContacts = this.displayedContacts.filter(contact =>
+        contact.firstName.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        contact.lastName.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+
+      this.noMatchFound = this.displayedContacts.length === 0;
+      if (this.noMatchFound) {
+        window.alert('No matching contacts found.');
+      }
+    } else {
+      // 当 searchTearm 为空时，显示所有联系人
+      this.contact$.subscribe(contacts => this.displayedContacts = contacts);
+      this.noMatchFound = false;
+    }
   }
 
+
+
   addContact() {
+    this.noMatchFound = false
     if (this.isContactValid(this.newContact)) {
       this.store.dispatch(addContact({ contact: this.newContact }));
       this.newContact = {

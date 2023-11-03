@@ -68,13 +68,19 @@
       <mat-label>FirstName/LastName</mat-label>
       <input matInput [(ngModel)]="searchTerm" />
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="filter()">
-      Filter
-    </button>
+    <button mat-raised-button color="primary" (click)="filter()">Filter</button>
   </div>
 </div>
 <h2 style="margin-top: 50px">Contact List</h2>
 <hr />
+<div *ngIf="noMatchFound; else contactList">
+  <p style="color: red;">No matching contacts found.</p>
+</div>
+
+<ng-template #contactList>
+  <!-- 这里放置联系人列表的 HTML -->
+</ng-template>
+
 <div
   *ngFor="let contact of displayedContacts"
   style="display: flex; flex-direction: row; padding: 15px"
@@ -107,6 +113,11 @@
   </div>
 </div>
 
-<button mat-raised-button color="primary" (click)="exportToCSV()" style="margin-top: 50px;">
+<button
+  mat-raised-button
+  color="primary"
+  (click)="exportToCSV()"
+  style="margin-top: 50px"
+>
   Export to CSV
 </button>
